@@ -41,6 +41,23 @@ func TestPassthroughRead(t *testing.T) {
 	}
 }
 
+func TestReadMultipleArrs(t *testing.T) {
+	r := bytes.NewReader([]byte{0x04, 0x01, 0x02, 0x03, 0x04, 0x11, 0x12, 0x13, 0x14})
+	var data struct {
+		Size  uint8
+		Data1 []byte `binpat:"len=Size"`
+		Data2 []byte `binpat:"len=Size"`
+	}
+	if err := binpat.Read(r, binary.BigEndian, &data); err != nil {
+		t.Fatal(err)
+	}
+	if data.Size != 4 ||
+		!bytes.Equal(data.Data1, []byte{0x01, 0x02, 0x03, 0x04}) ||
+		!bytes.Equal(data.Data2, []byte{0x11, 0x12, 0x13, 0x14}) {
+		t.Fatalf("unexpected value: %+v\n", data)
+	}
+}
+
 func TestWrite(t *testing.T) {
 	var w bytes.Buffer
 	data := struct {
@@ -71,6 +88,25 @@ func TestPassthroughWrite(t *testing.T) {
 		t.Fatal(err)
 	}
 	if !bytes.Equal(w.Bytes(), []byte{0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x04}) {
+		t.Fatalf("unexpected value: %+v", w.Bytes())
+	}
+}
+
+func TestWriteMultipleArrs(t *testing.T) {
+	var w bytes.Buffer
+	data := struct {
+		Size  uint8
+		Data1 []byte `binpat:"len=Size"`
+		Data2 []byte `binpat:"len=Size"`
+	}{
+		Size:  4,
+		Data1: []byte{0x01, 0x02, 0x03, 0x04},
+		Data2: []byte{0x11, 0x12, 0x13, 0x14},
+	}
+	if err := binpat.Write(&w, binary.BigEndian, &data); err != nil {
+		t.Fatal(err)
+	}
+	if !bytes.Equal(w.Bytes(), []byte{0x04, 0x01, 0x02, 0x03, 0x04, 0x11, 0x12, 0x13, 0x14}) {
 		t.Fatalf("unexpected value: %+v", w.Bytes())
 	}
 }
