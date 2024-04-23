@@ -1,12 +1,9 @@
-<div align="center">
-
 # Go-Binpat
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/xypwn/go-binpat)](https://goreportcard.com/report/github.com/xypwn/go-binpat)
 [![GitHub License](https://img.shields.io/github/license/xypwn/go-binpat)](https://opensource.org/license/mit)
 
 Drop-in replacement for the standard binary package that allows for defining more complex structures using struct tags.
-</div>
 
 ### Example: Read
 ```go
