@@ -1,5 +1,6 @@
 # Go-Binpat
 
+[![Go Reference](https://pkg.go.dev/badge/github.com/xypwn/go-binpat.svg)](https://pkg.go.dev/github.com/xypwn/go-binpat)
 [![Go Report Card](https://goreportcard.com/badge/github.com/xypwn/go-binpat)](https://goreportcard.com/report/github.com/xypwn/go-binpat)
 [![GitHub License](https://img.shields.io/github/license/xypwn/go-binpat)](https://opensource.org/license/mit)
 
