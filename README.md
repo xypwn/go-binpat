@@ -91,9 +91,12 @@ Bytes: [0x00 0x00 0x00 0x08 0x00 0x01 0x02 0x03 0x04 0x05 0x06 0x07 0x48('H') 0x
 #### Format by example
 ```go
 struct {
-    Size uint32
-    Data []int32 `binpat:"be,len=Size"`
-    Str  string  `binpat:"nt"`
+	// Size is set to be the length of the Data array in Data's struct tag
+	Size uint32
+	// Data is coded as Big Endian and its length is set to be the value of Size
+	Data []int32 `binpat:"be,len=Size"`
+	// Str is null-terminated
+	Str  string  `binpat:"nt"`
 }
 ```
 
