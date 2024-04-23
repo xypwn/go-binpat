@@ -152,7 +152,6 @@ func getSliceFieldLen(ctx context, sliceFieldIdx int, fieldIdxs map[string]int, 
 }
 
 type Binpat struct {
-	Funcs map[string]func(any) any
 }
 
 func (bp *Binpat) read(ctx context, r io.Reader, data any) error {
